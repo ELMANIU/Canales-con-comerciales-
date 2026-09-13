@@ -1,0 +1,10 @@
+name = "fenix-premiere-worker"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+UPSTREAM_CATALOG_URL = "https://raw.githubusercontent.com/ELMANIU/Roku-feed/main/catalog.json"
+
+# Si usas un dominio personalizado, puedes agregar:
+# PUBLIC_BASE_URL = "https://tv.tudominio.com"

@@ -1,0 +1,38 @@
+{
+  "tvCategories": [
+    {
+      "Title": "Fénix en vivo",
+      "Key": "fenix_en_vivo",
+      "Description": "Canales lineales originales con películas, series y cortes comerciales.",
+      "enabled": true,
+      "Channels": [
+        {
+          "id": "fenix-live-premiere",
+          "contentId": "fenix-live-premiere",
+          "Title": "Fénix Premiere 24/7",
+          "Description": "Películas, series y cortes comerciales durante todo el día.",
+          "Url": "https://fenix-premiere-worker.elmanuchale.workers.dev/premiere/live.m3u8",
+          "streamFormat": "hls",
+          "mediaType": "livefeed",
+          "statusUrl": "https://fenix-premiere-worker.elmanuchale.workers.dev/premiere/status",
+          "guideUrl": "https://fenix-premiere-worker.elmanuchale.workers.dev/premiere/guide.json",
+          "enabled": true,
+          "epg": []
+        },
+        {
+          "id": "fenix-live-fenixmix",
+          "contentId": "fenix-live-fenixmix",
+          "Title": "Fénix Mix 24/7",
+          "Description": "Una segunda señal lineal con cine, capítulos y promociones.",
+          "Url": "https://fenix-premiere-worker.elmanuchale.workers.dev/fenixmix/live.m3u8",
+          "streamFormat": "hls",
+          "mediaType": "livefeed",
+          "statusUrl": "https://fenix-premiere-worker.elmanuchale.workers.dev/fenixmix/status",
+          "guideUrl": "https://fenix-premiere-worker.elmanuchale.workers.dev/fenixmix/guide.json",
+          "enabled": true,
+          "epg": []
+        }
+      ]
+    }
+  ]
+}
