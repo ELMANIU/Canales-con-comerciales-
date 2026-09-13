@@ -29,7 +29,7 @@ export const CANALES = {
         nombre: "Película demo 01 — REEMPLAZAR URL",
         descripcion: "Contenido de prueba para validar la señal lineal.",
         tipo: "pelicula",
-        url: DEMO_PELICULA,
+        url: "https://hugh.cdn.rumble.cloud/video/fwe2/14/s8/2/o/M/f/G/oMfGA.aaa.mkv",
       },
       {
         nombre: "Serie demo S01E01 — REEMPLAZAR URL",
