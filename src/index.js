@@ -26,22 +26,22 @@ export const CANALES = {
     comercialEntreProgramas: true,
     programas: [
       {
-        nombre: "Película demo 01 — REEMPLAZAR URL",
-        descripcion: "Contenido de prueba para validar la señal lineal.",
+        nombre: "Guasón (2019)",
+        descripcion: "Arthur Fleck es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma.",
         tipo: "pelicula",
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/14/s8/2/o/M/f/G/oMfGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=1951023616-1951097761",
       },
       {
-        nombre: "Serie demo S01E01 — REEMPLAZAR URL",
-        descripcion: "Episodio de prueba para validar la programación.",
+        nombre: "Serie demo S02E01 — Extraños en una tierra extraña",
+        descripcion: "En ausencia del sheriff Boyd, Donna y Kenny tienen problemas para contener el caos cuando unos recién llegados aparecen en el pueblo. Victor y Tabitha emprenden un escalofriante viaje por el laberinto de túneles bajo el pueblo",
         tipo: "serie",
-        url: DEMO_SERIE,
+        url: "https://hugh.cdn.rumble.cloud/video/fwe2/fb/s8/2/O/S/T/G/OSTGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=764295168-764323740",
       },
     ],
     comerciales: [
       {
-        nombre: "Promo Fénix — REEMPLAZAR URL",
-        descripcion: "Corte promocional de demostración.",
+        nombre: "Comercial",
+        descripcion: "Corte promocional de fenix plus",
         tipo: "comercial",
         url: DEMO_PROMO,
         maxDurationSeconds: 30,
