@@ -43,7 +43,7 @@ export const CANALES = {
         nombre: "Comercial",
         descripcion: "Corte promocional de fenix plus",
         tipo: "comercial",
-        url: DEMO_PROMO,
+        url: "https://pub-31c3df763d1f4f2bbd2602595581aa82.r2.dev/Hyii/HLS/index.m3u8",
         maxDurationSeconds: 30,
       },
     ],
