@@ -32,7 +32,7 @@ export const CANALES = {
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/14/s8/2/o/M/f/G/oMfGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=1951023616-1951097761",
       },
       {
-        nombre: "Serie demo S02E01 — Extraños en una tierra extraña",
+        nombre: "S02E01 — Extraños en una tierra extraña",
         descripcion: "En ausencia del sheriff Boyd, Donna y Kenny tienen problemas para contener el caos cuando unos recién llegados aparecen en el pueblo. Victor y Tabitha emprenden un escalofriante viaje por el laberinto de túneles bajo el pueblo",
         tipo: "serie",
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/fb/s8/2/O/S/T/G/OSTGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=764295168-764323740",
