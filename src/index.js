@@ -67,13 +67,25 @@ export const CANALES = {
         tipo: "pelicula",
         url: "https://hugh.cdn.rumble.cloud/video/fww1/5f/s8/2/s/1/g/X/s1gXA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2614524928-2614576651",
       },
+      {
+  nombre: "Reyes de las olas 2: WaveMania (2017)",
+  descripcion: "Cody Maverick busca un nuevo desafío cuando se une al legendario grupo de surfistas extremos The Hang 5 para viajar a un misterioso lugar conocido como Las Trincheras, donde se encuentran las olas más peligrosas del mundo. En esta nueva aventura descubrirá el verdadero significado de la amistad, el trabajo en equipo y el espíritu del surf.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/dd/s8/2/G/_/4/X/G_4XA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2596488192-2596539640",
+},
+      {
+  nombre: "Gravity Falls — S01E02 — La leyenda del Gobblewonker",
+  descripcion: "Dipper, Mabel, Stan y Soos se embarcan en una excursión al lago Gravity Falls para investigar la existencia de una misteriosa criatura marina conocida como el Gobblewonker. Mientras Dipper busca pruebas para su diario, descubren que el lago esconde secretos inesperados.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/9f/s8/2/o/P/D/V/oPDVA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=665805824-665818855",
+},
     ],
     comerciales: [
       {
         nombre: "comercial",
         descripcion: "Corte promocional de fenix plus",
         tipo: "comercial",
-        url: DEMO_PROMO,
+        url: "https://pub-31c3df763d1f4f2bbd2602595581aa82.r2.dev/Hyii/HLS/index.m3u8",
         maxDurationSeconds: 30,
       },
     ],
