@@ -56,22 +56,22 @@ export const CANALES = {
     comercialEntreProgramas: true,
     programas: [
       {
-        nombre: "Serie demo S01E02 — REEMPLAZAR URL",
-        descripcion: "Contenido de prueba del segundo canal.",
+        nombre: "S01E01 — Turista atrapado",
+        descripcion: "Dos gemelos, Dipper y Mabel Pines, llegan a la remota ciudad de Gravity Falls para pasar sus vacaciones de verano, pero el nuevo novio sospechoso de Mabel revela extraños y misteriosos secretos de la ciudad para el dúo. Cuando el novio de Mabel resulta ser un grupo de gnomos, Dipper intenta salvarla.",
         tipo: "serie",
-        url: DEMO_SERIE,
+        url: "https://hugh.cdn.rumble.cloud/video/fwe2/06/s8/2/G/M/D/V/GMDVA.caa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=166684672-166697264",
       },
       {
-        nombre: "Película demo 02 — REEMPLAZAR URL",
-        descripcion: "Contenido de prueba del segundo canal.",
+        nombre: "Amigos Salvajes 4: Tontos por el susto (2015)",
+        descripcion: "Cuando por una confusión de identidad tanto humanos como animales creen que hay un hombre lobo suelto en el Bosque Timberline, el ex cazador Shaw aprovecha la oportunidad para reabrir la temporada de caza. Shaw anda suelto y todos los animales corren peligro, así que Boog, Elliot y Mr. Weenie tendrán que enfrentarse a sus miedos, perseguir al esquivo hombre lobo y cerrar la temporada de caza permanentemente, antes de que Shaw pueda hacerles daño.",
         tipo: "pelicula",
-        url: DEMO_PELICULA,
+        url: "https://hugh.cdn.rumble.cloud/video/fww1/5f/s8/2/s/1/g/X/s1gXA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2614524928-2614576651",
       },
     ],
     comerciales: [
       {
-        nombre: "Promo Fénix Mix — REEMPLAZAR URL",
-        descripcion: "Corte promocional de demostración.",
+        nombre: "comercial",
+        descripcion: "Corte promocional de fenix plus",
         tipo: "comercial",
         url: DEMO_PROMO,
         maxDurationSeconds: 30,
