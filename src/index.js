@@ -1,16 +1,5 @@
 // FENIX PREMIERE WORKER
-// BUILD407 — EPG limpio, sin truncamiento, sin fragmentacion por comerciales.
-//
-// Cambios respecto a BUILD406:
-//   - MAX_GUIDE_EVENTS subido a 5000.
-//   - Los comerciales ya NO se publican en el EPG (antes gastaban presupuesto
-//     de eventos y forzaban truncamiento prematuro de la ventana).
-//   - Los bloques contiguos del mismo programa se FUSIONAN en una sola
-//     entrada de EPG. Antes, un capitulo de 80 min partido por cortes cada
-//     15 min aparecia como 5-6 "programas" distintos en la app.
-//   - "next" del status/guide salta automaticamente los comerciales.
-//     Antes devolvia "comercial / Corte promocional" como siguiente.
-//   - Se expone nowContent (programa completo actual) ademas de now (bloque).
+// Dos canales HLS lineales 24/7 con peliculas, series, cortes comerciales y EPG.
 //
 // IMPORTANTE: cambia solamente las URLs de la seccion CANALES por playlists
 // HLS VOD (.m3u8) que tengas derecho de transmitir. El Worker no transcodifica.
@@ -18,7 +7,7 @@
 
 // ============ CONFIGURACION EDITABLE ============
 
-const WORKER_VERSION = "1.1.0";
+const WORKER_VERSION = "1.0.0";
 const DEFAULT_UPSTREAM_CATALOG_URL =
   "https://raw.githubusercontent.com/ELMANIU/Roku-feed/main/catalog.json";
 
@@ -79,17 +68,17 @@ export const CANALES = {
         url: "https://hugh.cdn.rumble.cloud/video/fww1/5f/s8/2/s/1/g/X/s1gXA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2614524928-2614576651",
       },
       {
-        nombre: "Reyes de las olas 2: WaveMania (2017)",
-        descripcion: "Cody Maverick busca un nuevo desafío cuando se une al legendario grupo de surfistas extremos The Hang 5 para viajar a un misterioso lugar conocido como Las Trincheras, donde se encuentran las olas más peligrosas del mundo. En esta nueva aventura descubrirá el verdadero significado de la amistad, el trabajo en equipo y el espíritu del surf.",
-        tipo: "pelicula",
-        url: "https://hugh.cdn.rumble.cloud/video/fww1/dd/s8/2/G/_/4/X/G_4XA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2596488192-2596539640",
-      },
+  nombre: "Reyes de las olas 2: WaveMania (2017)",
+  descripcion: "Cody Maverick busca un nuevo desafío cuando se une al legendario grupo de surfistas extremos The Hang 5 para viajar a un misterioso lugar conocido como Las Trincheras, donde se encuentran las olas más peligrosas del mundo. En esta nueva aventura descubrirá el verdadero significado de la amistad, el trabajo en equipo y el espíritu del surf.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/dd/s8/2/G/_/4/X/G_4XA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2596488192-2596539640",
+},
       {
-        nombre: "Gravity Falls — S01E02 — La leyenda del Gobblewonker",
-        descripcion: "Dipper, Mabel, Stan y Soos se embarcan en una excursión al lago Gravity Falls para investigar la existencia de una misteriosa criatura marina conocida como el Gobblewonker. Mientras Dipper busca pruebas para su diario, descubren que el lago esconde secretos inesperados.",
-        tipo: "serie",
-        url: "https://hugh.cdn.rumble.cloud/video/fww1/9f/s8/2/o/P/D/V/oPDVA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=665805824-665818855",
-      },
+  nombre: "Gravity Falls — S01E02 — La leyenda del Gobblewonker",
+  descripcion: "Dipper, Mabel, Stan y Soos se embarcan en una excursión al lago Gravity Falls para investigar la existencia de una misteriosa criatura marina conocida como el Gobblewonker. Mientras Dipper busca pruebas para su diario, descubren que el lago esconde secretos inesperados.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/9f/s8/2/o/P/D/V/oPDVA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=665805824-665818855",
+},
     ],
     comerciales: [
       {
@@ -114,13 +103,7 @@ const SEGMENTOS_ADELANTE = 12;
 const MINIMO_DESPUES_DE_CORTE_SECONDS = 90;
 const GUIDE_PAST_DAYS = 1;
 const GUIDE_FUTURE_DAYS = 7;
-// Antes 2000. Con la fusion de programas y la exclusion de comerciales
-// del EPG, el conteo real por ciclo baja drasticamente, pero damos margen
-// para canales con parrilla muy fragmentada.
-const MAX_GUIDE_EVENTS = 5000;
-// Tope de seguridad: una entrada de EPG fusionada no deberia durar mas de
-// esto. Evita fusionar accidentalmente dos emisiones contiguas identicas.
-const MAX_MERGED_EVENT_SECONDS = 4 * 60 * 60;
+const MAX_GUIDE_EVENTS = 2000;
 
 const scheduleCache = new Map();
 const scheduleCacheTime = new Map();
@@ -577,33 +560,12 @@ function blockOccurrence(schedule, cycle, blockIndex) {
   };
 }
 
-// Devuelve el bloque NO comercial mas cercano hacia adelante desde el indice
-// de bloque dado. Si el bloque actual ya es no comercial, lo devuelve tal cual.
-function findNextContentBlock(schedule, fromBlockIndex, fromCycle) {
-  const total = schedule.blocks.length;
-  let blockIndex = fromBlockIndex;
-  let cycle = fromCycle;
-  let guard = 0;
-  while (schedule.blocks[blockIndex].isCommercial && guard < total * 2) {
-    blockIndex = (blockIndex + 1) % total;
-    if (blockIndex === 0) cycle += 1;
-    guard += 1;
-  }
-  return { blockIndex, cycle };
-}
-
 function nowAndNext(schedule, state, nowSeconds) {
   const currentBlockIndex = schedule.segments[state.index].blockIndex;
-
-  // "next" siempre apunta al proximo CONTENIDO real, nunca a un comercial.
-  const found = findNextContentBlock(
-    schedule,
-    (currentBlockIndex + 1) % schedule.blocks.length,
-    state.cycle + (currentBlockIndex + 1 >= schedule.blocks.length ? 1 : 0),
-  );
-
+  const nextBlockIndex = (currentBlockIndex + 1) % schedule.blocks.length;
+  const nextCycle = state.cycle + (nextBlockIndex === 0 ? 1 : 0);
   const current = blockOccurrence(schedule, state.cycle, currentBlockIndex);
-  const next = blockOccurrence(schedule, found.cycle, found.blockIndex);
+  const next = blockOccurrence(schedule, nextCycle, nextBlockIndex);
   const elapsed = Math.max(0, nowSeconds - current.startSeconds);
   const progress = Math.max(0, Math.min(1, elapsed / Math.max(0.001, current.durationSeconds)));
   return {
@@ -613,59 +575,23 @@ function nowAndNext(schedule, state, nowSeconds) {
   };
 }
 
-// Fusiona bloques contiguos del mismo programa. Un capitulo partido por
-// cortes internos deja de aparecer como 5-6 "programas" separados.
-function mergeGuideEvent(events, event, cycle, lastEventCycle) {
-  const previous = events[events.length - 1];
-  const canMerge =
-    previous &&
-    lastEventCycle === cycle &&
-    previous.title === event.title &&
-    previous.description === event.description &&
-    previous.type === event.type &&
-    Math.abs(previous.endSeconds - event.startSeconds) < 1 &&
-    previous.durationSeconds + event.durationSeconds <= MAX_MERGED_EVENT_SECONDS;
-
-  if (canMerge) {
-    previous.end = event.end;
-    previous.endSeconds = event.endSeconds;
-    previous.durationSeconds = Number((previous.endSeconds - previous.startSeconds).toFixed(3));
-    return false;
-  }
-
-  events.push({
-    start: event.start,
-    end: event.end,
-    startSeconds: event.startSeconds,
-    endSeconds: event.endSeconds,
-    durationSeconds: event.durationSeconds,
-    title: event.title,
-    description: event.description,
-    type: event.type,
-    isCommercial: false,
-  });
-  return true;
-}
-
 function buildGuide(schedule, fromSeconds, untilSeconds) {
   const events = [];
   const firstCycle = Math.max(0, Math.floor((fromSeconds - schedule.epoch) / schedule.total) - 1);
   const lastCycle = Math.max(firstCycle, Math.floor((untilSeconds - schedule.epoch) / schedule.total) + 1);
-  let lastEventCycle = -1;
 
   for (let cycle = firstCycle; cycle <= lastCycle; cycle += 1) {
     for (let blockIndex = 0; blockIndex < schedule.blocks.length; blockIndex += 1) {
-      const block = schedule.blocks[blockIndex];
-      // Los comerciales ya no forman parte del EPG visible. Antes consumian
-      // presupuesto de MAX_GUIDE_EVENTS y truncaban la ventana.
-      if (block.isCommercial) continue;
-
       const event = blockOccurrence(schedule, cycle, blockIndex);
       if (event.endSeconds <= fromSeconds || event.startSeconds >= untilSeconds) continue;
-
-      mergeGuideEvent(events, event, cycle, lastEventCycle);
-      lastEventCycle = cycle;
-
+      events.push({
+        start: event.start,
+        end: event.end,
+        title: event.title,
+        description: event.description,
+        type: event.type,
+        isCommercial: event.isCommercial,
+      });
       if (events.length >= MAX_GUIDE_EVENTS) return events;
     }
   }
@@ -680,26 +606,15 @@ function guideWindow(schedule, nowSeconds) {
   );
 }
 
-// Programa completo actual (fusionado). Se calcula sobre la misma ventana
-// que sirve la app para que "AHORA" coincida visualmente con la parrilla.
-function findContentAt(events, nowSeconds) {
-  for (const event of events) {
-    if (event.startSeconds <= nowSeconds && event.endSeconds > nowSeconds) return event;
-  }
-  return null;
-}
-
-function scheduleSummary(schedule, nowSeconds, events) {
+function scheduleSummary(schedule, nowSeconds) {
   const state = getLiveState(schedule, nowSeconds);
   const status = nowAndNext(schedule, state, nowSeconds);
-  const nowContent = events ? findContentAt(events, nowSeconds) : null;
   return {
     id: schedule.channelKey,
     channel: schedule.channelName,
     description: schedule.channelDescription,
     now: status.now,
     next: status.next,
-    nowContent,
     progressPercent: status.progressPercent,
     cycle: state.cycle,
     positionInCycle: Number(state.position.toFixed(3)),
@@ -768,8 +683,7 @@ async function buildFenixCategory(baseUrl, nowSeconds) {
   for (const channelKey of Object.keys(CANALES)) {
     try {
       const schedule = await getSchedule(channelKey);
-      const events = guideWindow(schedule, nowSeconds);
-      const status = scheduleSummary(schedule, nowSeconds, events);
+      const status = scheduleSummary(schedule, nowSeconds);
       channels.push({
         id: "fenix-live-" + channelKey,
         contentId: "fenix-live-" + channelKey,
@@ -784,7 +698,7 @@ async function buildFenixCategory(baseUrl, nowSeconds) {
         tagline: "AHORA: " + status.now.title + " · DESPUÉS: " + status.next.title,
         statusUrl: baseUrl + "/" + channelKey + "/status",
         guideUrl: baseUrl + "/" + channelKey + "/guide.json",
-        epg: events,
+        epg: guideWindow(schedule, nowSeconds),
         enabled: true,
       });
     } catch (error) {
@@ -882,8 +796,6 @@ function jsonHeaders() {
     ...commonCorsHeaders(),
     "content-type": "application/json; charset=utf-8",
     "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
-    "cdn-cache-control": "no-store",
-    pragma: "no-cache",
   };
 }
 
@@ -908,8 +820,7 @@ async function allChannelGuide(request, env, headOnly) {
   for (const channelKey of Object.keys(CANALES)) {
     try {
       const schedule = await getSchedule(channelKey);
-      const events = guideWindow(schedule, nowSeconds);
-      const summary = scheduleSummary(schedule, nowSeconds, events);
+      const summary = scheduleSummary(schedule, nowSeconds);
       channels.push({
         id: channelKey,
         channel: schedule.channelName,
@@ -917,9 +828,8 @@ async function allChannelGuide(request, env, headOnly) {
         liveUrl: baseUrl + "/" + channelKey + "/live.m3u8",
         now: summary.now,
         next: summary.next,
-        nowContent: summary.nowContent,
         progressPercent: summary.progressPercent,
-        epg: events,
+        epg: guideWindow(schedule, nowSeconds),
       });
     } catch (error) {
       channels.push({ id: channelKey, channel: CANALES[channelKey].nombre, ready: false, error: errorText(error) });
@@ -993,7 +903,6 @@ export default {
               id: key,
               ready: schedule.segments.length > 0,
               segments: schedule.segments.length,
-              blocks: schedule.blocks.length,
               cycleDurationSeconds: Number(schedule.total.toFixed(3)),
             });
           } catch (error) {
@@ -1020,13 +929,10 @@ export default {
         return textResponse(playlist, 200, headOnly, hlsHeaders());
       }
       if (route === "/status") {
-        const events = guideWindow(schedule, nowSeconds);
-        const summary = scheduleSummary(schedule, nowSeconds, events);
-        return jsonResponse(summary, 200, headOnly);
+        return jsonResponse(scheduleSummary(schedule, nowSeconds), 200, headOnly);
       }
       if (route === "/guide.json" || route === "/epg.json") {
-        const events = guideWindow(schedule, nowSeconds);
-        const summary = scheduleSummary(schedule, nowSeconds, events);
+        const summary = scheduleSummary(schedule, nowSeconds);
         return jsonResponse(
           {
             id: channelKey,
@@ -1035,9 +941,8 @@ export default {
             generatedAt: new Date().toISOString(),
             now: summary.now,
             next: summary.next,
-            nowContent: summary.nowContent,
             progressPercent: summary.progressPercent,
-            epg: events,
+            epg: guideWindow(schedule, nowSeconds),
           },
           200,
           headOnly,
