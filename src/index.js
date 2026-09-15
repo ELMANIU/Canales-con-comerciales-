@@ -79,6 +79,24 @@ export const CANALES = {
   tipo: "serie",
   url: "https://hugh.cdn.rumble.cloud/video/fww1/9f/s8/2/o/P/D/V/oPDVA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=665805824-665818855",
 },
+      {
+  nombre: "Gravity Falls — S01E03 — Cazadores de cabezas",
+  descripcion: "Dipper y Mabel descubren que las figuras de cera de la Cabaña del Misterio cobran vida y buscan vengarse de Stan por haberlas abandonado. Los gemelos deberán enfrentarse a estos misteriosos cazadores de cabezas mientras intentan proteger a su tío abuelo.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/79/s8/2/Q/Q/D/V/QQDVA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=675152384-675165606",
+},
+      {
+  nombre: "Toy Story 5 (2026)",
+  descripcion: "Woody, Buzz, Jessie y el resto de los juguetes enfrentan un nuevo desafío cuando una avanzada tablet llamada Lilypad llega a la vida de Bonnie. En un mundo donde la tecnología amenaza con reemplazar los juegos tradicionales, los juguetes deberán demostrar que la imaginación y la amistad siguen siendo lo más importante.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fwe2/2c/s8/2/s/g/5/X/sg5XA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=1632099328-1632161144",
+},
+      {
+  nombre: "El Señor de los Anillos: La Guerra de los Rohirrim (2024)",
+  descripcion: "183 años antes de los acontecimientos de la trilogía de El Señor de los Anillos, la historia sigue a Helm Mano de Hierro, legendario rey de Rohan, y la defensa de su pueblo ante el ataque de Wulf, un enemigo que busca venganza. Su hija Héra deberá encontrar la fuerza para liderar la resistencia y proteger el reino de Rohan en una batalla que dará origen a la leyenda del Abismo de Helm.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fwe2/96/s8/2/E/n/T/X/EnTXA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2151157760-2151239677",
+},
     ],
     comerciales: [
       {
