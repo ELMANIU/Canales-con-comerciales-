@@ -32,11 +32,53 @@ export const CANALES = {
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/14/s8/2/o/M/f/G/oMfGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=1951023616-1951097761",
       },
       {
-        nombre: "S02E01 — Extraños en una tierra extraña",
+        nombre: "From - S02E01 — Extraños en una tierra extraña",
         descripcion: "En ausencia del sheriff Boyd, Donna y Kenny tienen problemas para contener el caos cuando unos recién llegados aparecen en el pueblo. Victor y Tabitha emprenden un escalofriante viaje por el laberinto de túneles bajo el pueblo",
         tipo: "serie",
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/fb/s8/2/O/S/T/G/OSTGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=764295168-764323740",
       },
+      {
+  nombre: "From - S02E02 — La amabilidad de los extraños",
+  descripcion: "Con el autobús recién llegado al pueblo, Boyd, Donna y Kenny deben enfrentar el caos que provoca la llegada de nuevos habitantes. Mientras tanto, las tensiones aumentan y los residentes deberán encontrar la manera de sobrevivir juntos ante las amenazas del misterioso pueblo.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fwe2/b1/s8/2/e/0/T/G/e0TGA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=739212800-739240460"
+},
+    {
+  nombre: "Moana 2 (2024)",
+  descripcion: "Moana recibe una llamada inesperada de sus ancestros y emprende un nuevo viaje junto a Maui y una nueva tripulación hacia los lejanos mares de Oceanía, enfrentando aguas peligrosas y olvidadas para vivir una aventura sin precedentes.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fwe2/9b/s8/2/e/-/c/X/e-cXA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=1846435328-1846505478"
+},  
+   {
+  nombre: "La Furia de los Thundermans (2026)",
+  descripcion: "Cuando Chloe desarrolla un nuevo poder energético impredecible, la Liga de Héroes exige enviarla a un internado de alta seguridad. La familia Thunderman se divide entre quienes quieren protegerla y quienes creen que debe aprender a controlar sus habilidades. Cuando descubren un peligroso plan, deberán unirse para salvar a Chloe y a la ciudad.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/19/s8/2/Q/U/0/W/QU0WA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2226194432-2226238531"
+},
+      {
+  nombre: "Static Shock - S01E01 — Impacto de prueba",
+  descripcion: "Virgil Hawkins obtiene poderes electromagnéticos después de un accidente con un gas experimental. Ahora deberá aprender a controlar sus nuevas habilidades mientras protege a Dakota City de las amenazas que surgen.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/15/s8/2/C/C/I/X/CCIXA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=340472320-340485021"
+},
+     {
+  nombre: "Static Shock - S01E02 — El nuevo chico de la escuela",
+  descripcion: "Virgil intenta adaptarse a su nueva vida como Static mientras enfrenta los problemas de la escuela y una nueva amenaza que pone a prueba sus habilidades como héroe.",
+  tipo: "serie",
+  url: "https://hugh.cdn.rumble.cloud/video/fwe2/2a/s8/2/I/D/I/X/IDIXA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=340417536-340430226"
+},
+      {
+  nombre: "Primitive War (2025)",
+  descripcion: "Vietnam, 1968. El equipo de reconocimiento Vulture Squad se adentra en un valle aislado para investigar la desaparición de un pelotón de Boinas Verdes. Pronto descubren que no están solos y deberán enfrentarse a una amenaza inimaginable mientras luchan por sobrevivir.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/9f/s8/2/2/o/C/W/2oCWA.gaa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2129359360-2129440451"
+},
+      {
+  nombre: "El poder del talismán (2003)",
+  descripcion: "Un agente de policía de Hong Kong y una arqueóloga descubren un antiguo talismán que contiene poderes sobrenaturales. Juntos deberán protegerlo de aquellos que quieren utilizar su energía para obtener un poder ilimitado.",
+  tipo: "pelicula",
+  url: "https://hugh.cdn.rumble.cloud/video/fww1/97/s8/2/-/7/e/W/-7eWA.haa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=2722503680-2722557565"
+},
     ],
     comerciales: [
       {
