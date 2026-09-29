@@ -165,6 +165,12 @@ export const CANALES = {
         tipo: "serie",
         url: "https://hugh.cdn.rumble.cloud/video/fwe2/97/s8/2/8/q/j/2/8qj2A.caa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=476072960-476108989",
       },
+      {
+        nombre: "BitMe Programa 02",
+        descripcion: "Contenido BitMe.",
+        tipo: "serie",
+        url: "https://hugh.cdn.rumble.cloud/video/fww1/99/s8/2/w/z/k/2/wzk2A.caa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=476310016-476346045",
+      },
     ],
 
     comerciales: [
