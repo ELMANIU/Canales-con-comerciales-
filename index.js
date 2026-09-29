@@ -78,6 +78,32 @@ export const CANALES = {
       },
     ],
   },
+  bitme: {
+  nombre: "BitMe 24/7",
+  descripcion: "Anime, videojuegos y entretenimiento.",
+  epoch: Date.UTC(2026, 0, 1, 12, 0, 0) / 1000,
+  intervaloComercialesMinutos: 15,
+  comercialEntreProgramas: true,
+
+  programas: [
+    {
+      nombre: "BitMe Programa 01",
+      descripcion: "Contenido BitMe.",
+      tipo: "serie",
+      url: "https://hugh.cdn.rumble.cloud/video/fwe2/97/s8/2/8/q/j/2/8qj2A.caa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=476072960-476108989",
+    },
+  ],
+
+  comerciales: [
+    {
+      nombre: "Promo Fénix",
+      descripcion: "Corte comercial.",
+      tipo: "comercial",
+      url: DEMO_PROMO,
+      maxDurationSeconds: 30,
+    },
+  ],
+},
 };
 
 
