@@ -150,6 +150,33 @@ export const CANALES = {
       },
     ],
   },
+    bitme: {
+    nombre: "BitMe 24/7",
+    descripcion: "Anime, videojuegos, tecnología y entretenimiento durante todo el día.",
+    epoch: Date.UTC(2026, 0, 1, 12, 0, 0) / 1000,
+
+    intervaloComercialesMinutos: 15,
+    comercialEntreProgramas: true,
+
+    programas: [
+      {
+        nombre: "BitMe Programa 01",
+        descripcion: "Contenido BitMe.",
+        tipo: "serie",
+        url: "https://hugh.cdn.rumble.cloud/video/fwe2/97/s8/2/8/q/j/2/8qj2A.caa.tar?r_file=chunklist.m3u8&r_type=application%2Fvnd.apple.mpegurl&r_range=476072960-476108989",
+      },
+    ],
+
+    comerciales: [
+      {
+        nombre: "Comercial",
+        descripcion: "Corte promocional de Fénix Plus.",
+        tipo: "comercial",
+        url: "https://pub-31c3df763d1f4f2bbd2602595581aa82.r2.dev/Hyii/HLS/index.m3u8",
+        maxDurationSeconds: 30,
+      },
+    ],
+  },
 };
 
 
